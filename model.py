@@ -163,8 +163,7 @@ def timestep(params: Params, state: State, stim: Stim, dt: float):
     Ipf     = params.gamma1*stim.Ipf1+params.gamma2*stim.Ipf2+params.gamma3*stim.Ipf3
     zeff    = state.z + state.dres
     zlim    = params.eta_z*(params.zmax+(jnp.where(I > params.Iint, 1, 0)*params.chi*(I-params.Iint)))
-    zlim    = params.eta_z * params.zmax * ( 1 + (jnp.where(I > params.Iint, 1, 0) * params.chi *
-              ((I-params.Iint)/nA)**2*2e-5))
+    #zlim    = params.eta_z * params.zmax * ( 1 + (jnp.where(I > params.Iint, 1, 0) * params.chi * ((I-params.Iint)/nA)**2*2e-5))
     eps_z_old   = params.eps_z0 - params.Deltaeps_z/(1+exp(-params.l*(zeff-zlim)))
     eps_z_new   = params.eps_z0 - params.Deltaeps_z * 1.0
     eps_z = eps_z_old * (1-params.LENNART) + eps_z_new * params.LENNART

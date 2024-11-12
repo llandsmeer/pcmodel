@@ -23,7 +23,8 @@ with open('params1606.json', 'r') as file:
 print(PARAMS)
 
 params = dict(PARAMS)
-params['chi'] = 0
+params['chi'] = 1
+params['Deltaeps_z'] = 8
 params['LENNART'] = 0
 params['Iint'] = 92e-9 + (73e-9 if params['LENNART'] else 0)
 
@@ -49,8 +50,6 @@ def cf_trace(params):
 
 f = plt.figure()
 
-Is = jnp.linspace(-10,350,30)
-
 nsamples = 100
 rand = jax.random.uniform(
         key=jax.random.PRNGKey(0),
@@ -64,9 +63,6 @@ sampled_params = {
         }
 
 spikes, traces = jax.vmap(cf_trace)(sampled_params)
-# spikes : (nsamples, ntimesteps)
-
-# 25600
 
 spike_times = [
     jnp.where(spikes[i])[0]
@@ -84,18 +80,4 @@ for i, idx in enumerate(spike_times):
             jnp.full(st.shape, i),
             'o', color='black')
 
-
-
-#for i in
-#    plt.plot(traces.state.Vs[i]+i/10, color='black')
-
 plt.show()
-
-# plt.plot(Is, F, color='black')
-# plt.gca().spines['top left bottom right'.split()].set_visible(False)
-# plt.xlabel('Stimulation current (nA)')
-# plt.ylabel('Frequency (Hz)')
-# #plt.xticks([50, 100, 150, 200, 250, 300])
-# plt.xticks([0, 100, 200, 300])
-# plt.yticks([0, 100, 200, 300])
-# plt.show()

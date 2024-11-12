@@ -12,9 +12,10 @@ with open('params1606.json', 'r') as file:
 print(PARAMS)
 
 params = dict(PARAMS)
-params['chi'] = 0
-params['LENNART'] = 1
-params['Iint'] = 92e-9 + 73e-9
+params['chi'] = 1
+params['Deltaeps_z'] = 8
+params['LENNART'] = 0
+params['Iint'] = 92e-9 # + 73e-9
 
 @functools.partial(jax.vmap, in_axes=[0, None])
 def fI_curve(Iinj, params):
